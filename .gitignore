@@ -1,0 +1,74 @@
+# Root level ignores
+.DS_Store
+.env
+*.log
+node_modules/
+
+# Front-end ignores
+/front/node_modules/
+/front/.env
+/front/.env.local
+/front/.env.development.local
+/front/.env.test.local
+/front/.env.production.local
+/front/build/
+/front/dist/
+/front/.cache/
+/front/coverage/
+
+# React specific (if using Create React App)
+/front/npm-debug.log*
+/front/yarn-debug.log*
+/front/yarn-error.log*
+
+# Vue specific (if using Vue CLI)
+/front/.DS_Store
+/front/node_modules
+/front/dist
+
+# Angular specific
+/front/.angular/cache
+/front/.sass-cache/
+/front/connect.lock
+/front/coverage
+/front/libpeerconnection.log
+/front/testem.log
+/front/typings
+
+# Server ignores
+/server/node_modules/
+/server/.env
+/server/dist/
+/server/build/
+/server/coverage/
+/server/logs/
+/server/*.log
+/server/npm-debug.log*
+/server/yarn-debug.log*
+/server/yarn-error.log*
+
+# Python server specific (if applicable)
+/server/__pycache__/
+/server/*.py[cod]
+/server/*$py.class
+/server/.Python
+/server/env/
+/server/venv/
+/server/.venv
+/server/ENV/
+
+# IDE specific ignores
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
