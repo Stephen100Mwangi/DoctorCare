@@ -18,11 +18,16 @@ const ReadBookings = () => {
 
   useEffect(() => {
     fetchAppointments();
-  }, []);
+  });
+
+  const localURL = import.meta.env.VITE_LOCAL_URL;
+  const apiUrl= import.meta.env.VITE_API_URL;
+
+  const baseUrl = localURL || apiUrl;
 
   const fetchAppointments = async () => {
     try {
-      const response = await fetch("http://localhost:5750/api/admin/viewAllAppointments");
+      const response = await fetch(`${baseUrl}/api/admin/viewAllAppointments`);
       if (!response.ok) {
         throw new Error("Failed to fetch appointments");
       }
@@ -52,7 +57,7 @@ const ReadBookings = () => {
   const handleMarkAsComplete = async () => {
     if (!selectedAppointment) return;
     try {
-      const response = await fetch(`http://localhost:5750/api/appointment/markComplete/${selectedAppointment}`, {
+      const response = await fetch(`${baseUrl}/api/appointment/markComplete/${selectedAppointment}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" }
       });
@@ -70,7 +75,7 @@ const ReadBookings = () => {
   const handleCancelAppointment = async () => {
     if (!selectedAppointment) return;
     try {
-      const response = await fetch(`http://localhost:5750/api/appointment/cancelAppointment/${selectedAppointment}`, {
+      const response = await fetch(`${baseUrl}/api/appointment/cancelAppointment/${selectedAppointment}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" }
       });
@@ -91,7 +96,7 @@ const ReadBookings = () => {
       return;
     }
     try {
-      const response = await fetch(`http://localhost:5750/api/appointment/reschedule/${selectedAppointment}`, {
+      const response = await fetch(`${baseUrl}/api/appointment/reschedule/${selectedAppointment}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ date })
