@@ -47,7 +47,7 @@ mongoose.connection.on ('disconnected', () => {
   console.warn ('Mongoose connection lost');
 });
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5750;
 app.listen (PORT, () => {
   console.log (`App running well on port http://localhost:${PORT}`);
 });
