@@ -25,9 +25,10 @@ const loginDoctor = async (req, res) => {
       return res.status (400).json ({message: 'Invalid email OR password'});
     }
 
-    return res
-      .status (200)
-      .json ({message: 'Doctor logged in successfully', user: userExists});
+    return res.status (200).json ({
+      message: 'Doctor logged in successfully',
+      user: userExists,
+    });
   } catch (error) {
     // Catch any errors and return a server error message
     return res

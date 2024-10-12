@@ -9,7 +9,7 @@ const AppointmentSchema = new mongoose.Schema (
     },
     patient: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Visitor',
+      ref: 'Patient',
       required: true,
     },
     patientEmail: {

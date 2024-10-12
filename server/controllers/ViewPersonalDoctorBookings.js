@@ -1,12 +1,12 @@
-import Bookings from '../models/Appointments.js';
+import Appointment from '../models/Appointments.js';
 
 const viewPersonalBookings = async (req, res) => {
-  const {email, password} = req.body;
+  const {patient} = req.body;
 
   try {
-    const PersonalData = Bookings.find ({email});
+    const PersonalData = await Appointment.find ({patient});
     if (PersonalData.length === 0) {
-      return res.status (204).json ({message: 'Empty bookings for'});
+      return res.status (204).json ({message: `Empty bookings`});
     }
 
     return res.status (200).json ({

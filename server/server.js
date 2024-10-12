@@ -12,6 +12,7 @@ import updatePatientById from './controllers/UpdatePatientById.js';
 import fetchAllDoctors from './controllers/FetchAllDoctors.js';
 import changeAvailability from './controllers/ChangeDoctorAvailability.js';
 import ViewAllDoctorBookings from './controllers/ViewAllDoctorBookings.js';
+import fetchAllPatients from './controllers/FetchAllPatients.js';
 import {
   markAsCancelled,
   markAsComplete,
@@ -72,3 +73,4 @@ app.get ('/api/admin/viewAllAppointments', ViewAllDoctorBookings);
 app.put ('/api/appointment/markComplete/:id', markAsComplete);
 app.put ('/api/appointment/cancelAppointment/:id', markAsCancelled);
 app.put ('/api/appointment/reschedule/:id', rescheduleAppointment);
+app.get ('/api/patients/fetchAllPatients', fetchAllPatients);

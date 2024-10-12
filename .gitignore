@@ -57,6 +57,30 @@ node_modules/
 /server/.venv
 /server/ENV/
 
+# Doctor folder ignores
+/doctor/node_modules/
+/doctor/.env
+/doctor/dist/
+/doctor/build/
+/doctor/coverage/
+/doctor/logs/
+/doctor/*.log
+/doctor/npm-debug.log*
+/doctor/yarn-debug.log*
+/doctor/yarn-error.log*
+
+# Admin folder ignores
+/admin/node_modules/
+/admin/.env
+/admin/dist/
+/admin/build/
+/admin/coverage/
+/admin/logs/
+/admin/*.log
+/admin/npm-debug.log*
+/admin/yarn-debug.log*
+/admin/yarn-error.log*
+
 # IDE specific ignores
 .idea/
 .vscode/

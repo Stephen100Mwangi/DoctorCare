@@ -1,5 +1,9 @@
 # Doctor-Patient Management System
 
+## Test Live Version
+
+[text](https://doctorcare-client.onrender.com/)
+
 ## Overview
 
 This project is a comprehensive doctor-patient management system designed to streamline healthcare administration and improve patient care. It features separate front-end and server components, providing a robust platform for managing appointments, patient records, and doctor schedules.
@@ -12,12 +16,14 @@ This project is a comprehensive doctor-patient management system designed to str
 - Appointment rescheduling and cancellation
 - Secure authentication for doctors and administrators
 - Responsive front-end interface for easy access on various devices
+- CRON services to schedule reminders
+- Socket.io to facilitate communication between doctor and patient
 
 ## Tech Stack
 
 - **Front-end**: React.js with modern hooks and state management
 - **Server**: Node.js with Express.js
-- **Database**: [Your database choice, e.g., MongoDB, PostgreSQL]
+- **Database**: [ MongoDB ]
 - **Authentication**: [Your auth method, e.g., JWT, OAuth]
 
 ## Project Structure

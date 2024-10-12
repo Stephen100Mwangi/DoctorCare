@@ -1,9 +1,41 @@
+import { useEffect, useState } from "react"
 import Button from "../components/Button"
 import DoctorCard from "../components/DoctorCard"
 import DoctorIcon from "../components/DoctorIcon"
 import Logo from "../components/Logo"
+import toast from "react-hot-toast"
 
 const Home = () => {
+
+  const localUrl = import.meta.env.VITE_LOCAL_URL;
+  const apiURL = import.meta.env.VITE_API_URL;
+  const baseUrl = localUrl || apiURL;
+
+  const [availableDoctors,setDoctors] = useState([]);
+
+  useEffect(()=>{
+    async function fetchDoctors() {
+      try {
+        const response = await fetch(`${baseUrl}/api/doctors/fetchAllDoctors`);
+        if (!response.ok) {
+          toast.error("Error fetching doctors")
+          return;
+        }
+
+        const doctorsFound = await response.json();
+        console.log(doctorsFound);
+        setDoctors(doctorsFound.doctors.slice(0,5))
+        
+        
+      } catch (error) {
+        toast.error("Internal server error");
+        console.log(error.message);
+        return;        
+      }
+      
+    }
+    fetchDoctors();
+  },[baseUrl])
   return (
     <div id="home" className="w-full min-h-[calc(100vh-80px)] flex flex-col px-12 py-20">
       <div className="w-full h-fit relative bg-card rounded-lg p-8">
@@ -23,7 +55,7 @@ const Home = () => {
       </div>
 
       <div className="flex justify-center gap-y-10 flex-col items-center my-16 mb-48">
-      <div className="text-2xl font-bold">Find by Speciality</div>
+      <div className="text-2xl font-bold">Find by Specialty</div>
       <div>Simply browse through our extensive list of trusted doctors, schedule your appointment hassle-free</div>
       <div className="flex justify-center items-center gap-x-8">
         <DoctorIcon role={"General Physician"} icon={"./assets_frontend/General_physician.svg"}></DoctorIcon>
@@ -38,20 +70,11 @@ const Home = () => {
      <div id="doctor" className="flex justify-center items-center gap-y-10 mx-12 flex-col my-8 mb-24">
         <div className="title text-2xl font-bold">Top Doctors To Book</div>
         <div className="text-sm font-light">Simply browse through extensive list of trusted Doctors</div>
-        <div className="images grid grid-cols-5 gap-16">
-            <DoctorCard role={"General Physician"} name={"Steve Mwangi"} image={"./assets/assets_frontend/doc1.png"} available="true"></DoctorCard>
-            <DoctorCard role={"General Physician"} name={"Steve Mwangi"} image={"./assets/assets_frontend/doc2.png"} available="true"></DoctorCard>
-            <DoctorCard role={"General Physician"} name={"Steve Mwangi"} image={"./assets/assets_frontend/doc3.png"} available="true"></DoctorCard>
-            <DoctorCard role={"General Physician"} name={"Steve Mwangi"} image={"./assets/assets_frontend/doc4.png"} available="true"></DoctorCard>
-            <DoctorCard role={"General Physician"} name={"Steve Mwangi"} image={"./assets/assets_frontend/doc5.png"} available="true"></DoctorCard>
-            <DoctorCard role={"General Physician"} name={"Steve Mwangi"} image={"./assets/assets_frontend/doc6.png"} available="true"></DoctorCard>
-            <DoctorCard role={"General Physician"} name={"Steve Mwangi"} image={"./assets/assets_frontend/doc7.png"} available="true"></DoctorCard>
-            <DoctorCard role={"General Physician"} name={"Steve Mwangi"} image={"./assets/assets_frontend/doc8.png"} available="true"></DoctorCard>
-            <DoctorCard role={"General Physician"} name={"Steve Mwangi"} image={"./assets/assets_frontend/doc9.png"} available="true"></DoctorCard>
-            <DoctorCard role={"General Physician"} name={"Steve Mwangi"} image={"./assets/assets_frontend/doc10.png"} available="true"></DoctorCard>
+        <div className="images grid grid-cols-5 gap-16 justify-center items-center">
+          {
+            availableDoctors.map((eachDoctor)=> <DoctorCard key={eachDoctor._id} name={eachDoctor.username} role={eachDoctor.position} image={eachDoctor.doctorImage} available={eachDoctor.available}></DoctorCard>)
+          }
         </div>
-        <Button text="More"></Button>
-      
     </div>
 
     <div id="custom" className="my-8 mx-10 flex p-24 h-fit relative bg-card rounded-lg">
