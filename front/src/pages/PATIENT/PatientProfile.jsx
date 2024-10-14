@@ -6,6 +6,10 @@ import { useSelector } from "react-redux";
 import axios from 'axios'
 import toast,{ Toaster } from "react-hot-toast";
 
+const localUrl = import.meta.env.VITE_LOCAL_URL;
+const apiURL = import.meta.env.VITE_API_URL;
+const baseUrl = localUrl || apiURL;
+
 const Profile = () => {
     const navigate = useNavigate();
     const [edit, setEdit] = useState(false);
@@ -104,7 +108,7 @@ const Profile = () => {
       };
 
       try {
-        const response = await fetch(`http://localhost:5750/api/patient/updatePatientById/${patientUser.id}`, {
+        const response = await fetch(`${baseUrl}/api/patient/updatePatientById/${patientUser.id}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -123,7 +127,7 @@ const Profile = () => {
   useEffect(() => {
   const fetchPatientData = async () => {
     try {
-      const response = await fetch(`http://localhost:5750/api/patient/findById/${patientUser.id}`);
+      const response = await fetch(`${baseUrl}/api/patient/findById/${patientUser.id}`);
       if (!response.ok) {
         throw new Error('Failed to fetch patient data');
       }

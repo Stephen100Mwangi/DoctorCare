@@ -5,6 +5,10 @@ import toast, { Toaster } from "react-hot-toast";
 import DoctorCard from "../components/DoctorCard";
 import Button from "../components/Button";
 
+const localUrl = import.meta.env.VITE_LOCAL_URL;
+const apiURL = import.meta.env.VITE_API_URL;
+const baseUrl = localUrl || apiURL;
+
 const BookingDoctors = () => {
   const [doctors, setDoctors] = useState([]);
   const [bookDoctor, setBookDoctor] = useState(false);
@@ -29,7 +33,7 @@ const BookingDoctors = () => {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const response = await fetch("http://localhost:5750/api/doctors/fetchAllDoctors");
+        const response = await fetch(`${baseUrl}/api/doctors/fetchAllDoctors`);
         if (!response.ok) {
           toast.error("Error fetching doctors");
         } else {
@@ -80,7 +84,7 @@ const BookingDoctors = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5750/api/appointments/book", {
+      const response = await fetch(`${baseUrl}/api/appointments/book`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

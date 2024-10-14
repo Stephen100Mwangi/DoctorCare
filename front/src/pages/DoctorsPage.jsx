@@ -3,6 +3,10 @@ import toast, { Toaster } from "react-hot-toast";
 import { FaSpinner } from "react-icons/fa6";
 import DoctorCard from "../components/DoctorCard";
 
+const localUrl = import.meta.env.VITE_LOCAL_URL;
+const apiURL = import.meta.env.VITE_API_URL;
+const baseUrl = localUrl || apiURL;
+
 const DoctorsPage = () => {
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -14,7 +18,7 @@ const DoctorsPage = () => {
     const fetchDoctors = async () => {
       setLoading(true);
       try {
-        const response = await fetch("http://localhost:5750/api/doctors/fetchAllDoctors", {
+        const response = await fetch(`${baseUrl}/api/doctors/fetchAllDoctors`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
