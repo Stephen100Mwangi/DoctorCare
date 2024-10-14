@@ -1,7 +1,19 @@
 import Admin from '../models/Admin.js';
 import bcrypt from 'bcrypt';
+import check from 'express-validator';
+import jwt from 'jsonwebtoken';
+import {validationResult} from 'express-validator';
+
+const SECRET = process.env.JWT_SECRET;
+const expiresIn = '2h';
 
 const LoginAdmin = async (req, res) => {
+  const errors = validationResult (req);
+
+  if (!errors.isEmpty ()) {
+    return res.status (400).json ({errors: errors.array ()});
+  }
+
   const {email, password} = req.body;
 
   // Check if all fields are complete
@@ -26,7 +38,12 @@ const LoginAdmin = async (req, res) => {
     }
 
     // Successful login
-    return res.status (200).json ({message: 'Correct Admin Login'});
+    const token = jwt.sign ({email}, SECRET, {expiresIn});
+
+    return res.status (200).json ({
+      message: 'Correct Admin Login',
+      token, // Include the token in the response
+    });
   } catch (error) {
     // Handle any unexpected errors
     return res
