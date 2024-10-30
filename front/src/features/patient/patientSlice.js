@@ -24,12 +24,20 @@ const userSlice = createSlice ({
       state.value.email = action.payload.email;
       state.value.isLoggedIn = true;
       state.value.id = action.payload.id;
+      state.value.address = action.payload.address;
+      state.value.gender = action.payload.gender;
+      state.value.dateOfBirth = action.payload.address;
+      state.value.phone = action.payload.phone;
     },
     logoutUser: state => {
       state.value.username = '';
       state.value.email = '';
       state.value.isLoggedIn = false;
       state.value.id = null;
+      state.value.address = '';
+      state.value.gender = '';
+      state.value.dateOfBirth = '';
+      state.value.phone = '';
     },
     updateProfile: (state, action) => {
       state.value.username = action.payload.username;

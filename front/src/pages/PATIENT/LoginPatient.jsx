@@ -1,6 +1,6 @@
 import Button from "../../components/Button"
 import { Link } from "react-router-dom"
-import { loginUser } from "../../features/visitor/visitorSlice"
+import { loginUser } from "../../features/patient/patientSlice"
 import { useDispatch } from "react-redux"
 import { useState } from "react"
 import toast, { Toaster } from 'react-hot-toast'
@@ -55,10 +55,11 @@ const Patient_Login = () => {
 
       if (user) {
         dispatch(loginUser({ email: user.email, username: user.username, id: user.id, isLoggedIn: true }));
+        sessionStorage.setItem("accessToken",)
         toast.success(data.message + " Login Successful.");
         // Redirect after successful login
         setTimeout(() => {
-          navigate("/visitor/profile");
+          navigate("/patient/profile");
         }, 2000);
       }
 
@@ -96,7 +97,7 @@ const Patient_Login = () => {
           />
         </div>
 
-        <Link to={"/register/visitor"} className="text-card">
+        <Link to={"/register/patient"} className="text-card">
           <span className="mx-2 text-black">New Here?</span>Create an account
         </Link>
         <Link className="text-red-500">Forgot Password</Link>

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 const Button = ({text,clickFunction,hoverBG,link_path,hoverTEXT}) => {
   return (
-    <Link id='button' to={link_path} className={`bg-card p-3 px-6 rounded-sm hover:rounded-full shadow-xl cursor-pointer m-auto w-fit text-white hover:bg-${hoverBG} hover:text-${hoverTEXT}`} onClick={clickFunction} >
+    <Link id='button' to={link_path} className={`bg-card p-3 px-6 rounded-sm hover:rounded-full shadow-xl cursor-pointer m-auto max-sm:ml-0 w-fit text-white hover:bg-${hoverBG} hover:text-${hoverTEXT}`} onClick={clickFunction} >
       {text}
     </Link>
   )

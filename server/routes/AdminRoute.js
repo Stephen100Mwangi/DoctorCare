@@ -15,6 +15,7 @@ adminRoute.post ('/admin/create', createAdmin);
 adminRoute.post (
   '/admin/login',
   [
+    
     body ('email').isEmail ().withMessage ('Please provide a valid email'),
     body ('otp')
       .isNumeric ()

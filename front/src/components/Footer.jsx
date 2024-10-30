@@ -2,8 +2,8 @@ import Logo from './Logo'
 const Footer = () => {
   return (
     <div className="flex flex-col  gap-5 justify-center items-center mx-10 pt-24">
-        <div className='flex justify-evenly gap-x-24'>
-            <div className="w-1/2 flex flex-col gap-5 justify-start items-start">
+        <div className='flex justify-evenly gap-x-24 max-sm:flex-col max-sm:bg-red-600'>
+            <div className="w-1/2 flex flex-col gap-5 justify-start items-start max-sm:w-full">
             <Logo></Logo>
             <p>
               At DoctorCare, our mission is to provide exceptional healthcare services
@@ -14,7 +14,7 @@ const Footer = () => {
               your health is in the best hands.
             </p>
             </div>
-            <div className="w-1/2 flex justify-start pl-8 gap-x-28 items-start">
+            <div className="w-1/2 flex justify-start pl-8 gap-x-28 items-start max-sm:w-full">
              <div className='flex flex-col space-y-3'>
                 <div className='font-bold mb-3'>COMPANY</div>
                 <div>Home</div>

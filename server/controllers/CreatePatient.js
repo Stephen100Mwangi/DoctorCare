@@ -1,38 +1,26 @@
+// CreatePatient.js
 import Patient from '../models/Patient.js';
 import bcrypt from 'bcrypt';
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+
+dotenv.config ();
 
 const createPatient = async (req, res) => {
+  const jwtAccessSecret = process.env.JWT_ACCESS_SECRET;
+  const jwtRefreshSecret = process.env.JWT_REFRESH_SECRET;
+
   try {
-    const {username, email, password, confirmPassword} = req.body;
-
-    // Input validation
-    if (!username) {
-      return res.status (400).json ({message: 'You must provide a username'});
-    }
-    if (!email) {
-      return res.status (400).json ({message: 'You must provide an email'});
-    }
-    if (!password) {
-      return res.status (400).json ({message: 'You must provide a password'});
-    }
-    if (!confirmPassword) {
-      return res.status (400).json ({message: 'You must confirm password'});
-    }
-
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    const passwordStrong = passwordRegex.test (password);
-
-    if (!passwordStrong) {
-      return res.status (400).json ({
-        message: 'Password must contain at least 8 characters with a lowercase,uppercase,special character and a number',
-      });
-    }
-
-    if (confirmPassword !== password) {
-      return res
-        .status (400)
-        .json ({message: 'Password must match confirmation password'});
-    }
+    const {
+      username,
+      email,
+      password,
+      gender,
+      dateOfBirth,
+      phone,
+      address,
+      userImage,
+    } = req.body;
 
     // Check if user already exists
     const userExists = await Patient.findOne ({email});
@@ -41,19 +29,43 @@ const createPatient = async (req, res) => {
     }
 
     // Hash the password
-    const hashPassword = await bcrypt.hash (password, 10);
+    const hashedPassword = await bcrypt.hash (password, 10);
 
     // Create new patient
     const newUser = await Patient.create ({
       username,
       email,
-      password: hashPassword,
+      password: hashedPassword,
+      gender,
+      dateOfBirth,
+      phone,
+      address,
+      userImage, // This field is optional
+    });
+
+    // Generate JWT tokens
+    const access_token = jwt.sign ({id: newUser._id}, jwtAccessSecret, {
+      expiresIn: '30m',
+    });
+    const refresh_token = jwt.sign ({id: newUser._id}, jwtRefreshSecret, {
+      expiresIn: '12d',
     });
 
     // Return success response
     return res.status (201).json ({
       message: 'Patient created successfully',
-      user: newUser,
+      user: {
+        id: newUser._id,
+        username: newUser.username,
+        email: newUser.email,
+        gender: newUser.gender,
+        dateOfBirth: newUser.dateOfBirth,
+        phone: newUser.phone,
+        address: newUser.address,
+        userImage: newUser.userImage,
+      },
+      access_token,
+      refresh_token,
     });
   } catch (error) {
     // Catch any errors and return a server error message

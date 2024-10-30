@@ -10,25 +10,21 @@ import DoctorsPage from './pages/DoctorsPage'
 import About from './pages/About'
 import Contacts from './pages/Contacts'
 import BookingDoctors from './pages/BookingDoctors'
+import { logoutUser } from './features/patient/patientSlice'
 
 import Patient_Register from './pages/PATIENT/RegisterPatient'
 import Patient_Login from './pages/PATIENT/LoginPatient'
 
 
-import { logoutUser } from './features/visitor/visitorSlice'
-import { logoutAdmin } from './features/admin/AdminSlice'
-import { logoutDoctor } from './features/doctor/DoctorSlice'
 import { persistor } from './app/store'
 import ManageBookings from './pages/PATIENT/ManageBookings'
 const App = () => {
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   // useEffect(()=>{
   //   const handleTabClose = ()=>{
   //     dispatch(logoutUser())
-  //     dispatch(logoutAdmin())
-  //     dispatch(logoutDoctor())
 
   //     localStorage.removeItem("patientData")
   //     localStorage.removeItem("doctorData")
@@ -51,9 +47,9 @@ const App = () => {
         <Route path='/contacts' element={<Contacts></Contacts>}></Route>
         <Route path='*' element={<Page404></Page404>}></Route>
 
-        <Route path='/register/visitor' element={<Patient_Register></Patient_Register>}></Route>
-        <Route path='/login/visitor' element={<Patient_Login></Patient_Login>}></Route>
-        <Route path='/visitor/profile' element={<Profile></Profile>}></Route>
+        <Route path='/register/patient' element={<Patient_Register></Patient_Register>}></Route>
+        <Route path='/login/patient' element={<Patient_Login></Patient_Login>}></Route>
+        <Route path='/patient/profile' element={<Profile></Profile>}></Route>
         <Route path='/patient/managePersonalBookings' element={<ManageBookings></ManageBookings>}></Route>
 
         <Route path='/booking/doctor' element={<BookingDoctors></BookingDoctors>}></Route>

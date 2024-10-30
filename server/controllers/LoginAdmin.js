@@ -1,6 +1,5 @@
 import Admin from '../models/Admin.js';
 import bcrypt from 'bcrypt';
-import check from 'express-validator';
 import jwt from 'jsonwebtoken';
 import {validationResult} from 'express-validator';
 
@@ -14,10 +13,10 @@ const LoginAdmin = async (req, res) => {
     return res.status (400).json ({errors: errors.array ()});
   }
 
-  const {email, password} = req.body;
+  const {email, password } = req.body;
 
   // Check if all fields are complete
-  if (!email || !password) {
+  if (!email || !password ) {
     return res.status (400).json ({message: 'All fields must be complete'});
   }
 
@@ -35,6 +34,12 @@ const LoginAdmin = async (req, res) => {
     );
     if (!correctPassword) {
       return res.status (401).json ({message: 'Invalid email or password'});
+    }
+
+    const Correct_OTP = userExists.otp;
+
+    if (Correct_OTP !== otp) {
+      return res.status(401).json({message:"Unauthorized access"});
     }
 
     // Successful login

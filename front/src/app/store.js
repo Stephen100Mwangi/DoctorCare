@@ -2,9 +2,7 @@ import {configureStore} from '@reduxjs/toolkit';
 import {persistReducer, persistStore} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import userReducer from '../features/visitor/visitorSlice.js';
-import adminReducer from '../features/admin/AdminSlice.js';
-import doctorReducer from '../features/doctor/DoctorSlice.js';
+import userReducer from '../features/patient/patientSlice.js';
 
 const persistConfig = {
   key: 'root',
@@ -12,14 +10,10 @@ const persistConfig = {
 };
 
 const patientPersist = persistReducer (persistConfig, userReducer);
-const adminPersist = persistReducer (persistConfig, adminReducer);
-const doctorPersist = persistReducer (persistConfig, doctorReducer);
-
+  
 const store = configureStore ({
   reducer: {
     patientData: patientPersist,
-    adminData: adminPersist,
-    doctorData: doctorPersist,
   },
   // eslint-disable-next-line no-undef
   devTools: process.env.NODE_ENV !== 'production' &&
